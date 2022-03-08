@@ -1,0 +1,101 @@
+<h1 class="mt-4">LIVROS</h1>
+<ol class="breadcrumb rounded-pill p-3 mb-4 bg-secondary">
+  <li class="breadcrumb-item active text-white">Consulta</li>
+</ol>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-danger text-center" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-success btn-md rounded-pill" style="width: 100%;" (click)="newBook()">
+        <i class="fas fa-plus"></i> adicionar
+      </button>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-success table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TITULO</th>
+            <th>AUTOR</th>
+            <th>CADASTRADO POR</th>
+            <th>CADASTRADO EM</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of bookEntity">
+            <td>{{ book.id }}</td>
+            <td>{{ book.tittle }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.createdBy }}</td>
+            <td>{{ book.createdAt }}</td>
+            <td>
+              <button
+                class="btn btn-primary btn-md rounded-pill"
+                routerLink="/book-form/{{ book.id }}">
+                  <i class="fas fa-edit"></i>
+              </button>
+
+              <button
+                class="btn btn-danger btn-md rounded-pill"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+                (click)="deleteAsk(book)">
+                  <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirma exclusao do livro?</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close">
+        </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedBook">
+          <p>{{ selectedBook.tittle }}</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary btn-md rounded-pill"
+            style="width: 25%;"
+            (click)="deleteBook()"
+            data-bs-dismiss="modal">confirmar
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary btn-md rounded-pill"
+            data-bs-dismiss="modal"
+            style="width: 25%;">cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

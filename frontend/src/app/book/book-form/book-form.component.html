@@ -1,0 +1,116 @@
+<h1 class="mt-4">LIVROS</h1>
+<ol class="breadcrumb rounded-pill p-3 mb-4 bg-secondary">
+  <li class="breadcrumb-item active text-white">{{ bookEntity.id ? 'EDITAR' : 'CADASTRAR' }}</li>
+</ol>
+
+<div class="container">
+  <form #bookForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="alert alert-success text-center rounded-pill"
+          role="alert"
+          *ngIf="saveUpdateSuccess == true">
+            Atualizado com sucesso!
+        </div>
+        <div
+          class="alert alert-danger text-center rounded-pill"
+          role="alert"
+          *ngFor="let erro of errorsToSaveUpdate">
+            {{ errorsToSaveUpdate }}
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="bookEntity.id">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>ID</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="bookEntity.id"
+            name="id"
+            disabled="true" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Cadastrado pelo usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="bookEntity.createdBy"
+            name="createdBy"
+            disabled="true" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Cadastrado em</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="bookEntity.createdAt"
+            name="createdAt"
+            disabled="true" />
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Titulo *</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Insira o titulo do livro"
+            [(ngModel)]="bookEntity.tittle"
+            name="tittle" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Autora / Autor *</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Insira o nome da autora"
+            [(ngModel)]="bookEntity.author"
+            name="author" />
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="col-md-2">
+        <button
+          type="submit"
+          class="btn btn-success btn-md rounded-pill"
+          style="width: 100%;"
+          *ngIf="!bookEntity.id">
+            <i class="fas fa-check-double"></i> cadastrar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary btn-md rounded-pill"
+          style="width: 100%;"
+          *ngIf="bookEntity.id">
+            <i class="fas fa-check-double"></i> atualizar
+        </button>
+      </div>
+      <div class="col-md-2">
+        <button
+        type="button"
+          class="btn btn-secondary btn-md rounded-pill"
+          style="width: 100%;"
+          (click)="backToList()">
+            <i class="fas fa-angle-double-left"></i> voltar
+        </button>
+      </div>
+    </div>
+    <br />
+  </form>
+</div>
